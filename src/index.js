@@ -11,16 +11,16 @@ const route = require('./routes/index');
 //static files
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.engine('hbs', engine({ extname: '.hbs', defaultLayout: 'main' }));
+app.set(
+    'view engine',
 
+    'hbs',
+);
+app.set('views', path.join(__dirname, 'resources/views'));
 
-
- app.engine('hbs',engine({ extname: '.hbs', defaultLayout: "main"}));
- app.set('view engine', 'hbs');
- app.set('views', path.join(__dirname, 'resources/views'));
-
-
- route(app);
+route(app);
 
 app.listen(port, () => {
-  console.log(`Example app listening on port http://localhost:${port}`)
-})
+    console.log(`Example app listening on port http://localhost:${port}`);
+});
