@@ -7,20 +7,24 @@ const { query } = require('express');
 const app = express();
 const port = 3000;
 const route = require('./routes/index');
+const db = require('./config/db');
+
+// Connect to DB
+db.connect();
 
 //static files
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.engine('hbs', engine({ extname: '.hbs', defaultLayout: 'main' }));
 app.set(
-    'view engine',
+     'view engine',
 
-    'hbs',
+     'hbs',
 );
-app.set('views', path.join(__dirname, 'resources/views'));
+app.set('views', path.join(__dirname, 'resources', 'views'));
 
 route(app);
 
 app.listen(port, () => {
-    console.log(`Example app listening on port http://localhost:${port}`);
+     console.log(`App listening on port http://localhost:${port}`);
 });

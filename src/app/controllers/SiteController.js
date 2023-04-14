@@ -1,20 +1,33 @@
-class SiteController
-{
-    index(req, res)
+//const { default: mongoose } = require("mongoose");
+
+const Course = require('../models/Course');
+const {multipleMongooseToObject}  = require('../../util/mongoose');
+
+class SiteController {
+    /*index(req, res) {
+        Course.find({})
+        .then(function(courses) {
+          res.json( courses);
+        })
+        .catch(function(err) {
+          res.json(err);
+        });
+    }*/
+    index(req, res, next)
     {
-        res.render('home');
+        Course.find({})
+        .then(courses => {
+           
+            res.render('home',{
+                 courses : multipleMongooseToObject(courses)
+                 });
+        })
+        .catch(next);
     }
 
-    //[GET]/news/:slug // search
-    search(req, res)
-    {
+    search(req, res) {
         res.render('search');
     }
 
-    // tạo pthuc trong đây
-    
 }
-
-module.exports = new SiteController;
-
-//const newController = require('./NewsController');
+module.exports = new SiteController();
